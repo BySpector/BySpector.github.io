@@ -12,7 +12,7 @@
             <ul>
                 <li><a href="#games">Games</a></li>
                 <li><a href="#websites">Websites</a></li>
-                <li><a href="#settings">Settings</a></li>
+                <li><a href="#settings" onclick="showSettings()">Settings</a></li>
                 <li><a href="#credits">Credits</a></li>
             </ul>
         </nav>
@@ -20,7 +20,7 @@
 
     <main>
         <h1>Settings</h1>
-        <section id="tabCloaker">
+        <section id="tabCloaker" style="display: none;">
             <h2>Tab Cloaker</h2>
             <label for="tabUrl">Website URL:</label>
             <input type="url" id="tabUrl" placeholder="Enter website URL">
@@ -30,6 +30,11 @@
     </main>
 
     <script>
+        function showSettings() {
+            var tabCloaker = document.getElementById("tabCloaker");
+            tabCloaker.style.display = "block";
+        }
+
         function openInBlank() {
             var url = document.getElementById("tabUrl").value;
             var newTab = window.open("about:blank", "_blank");
@@ -42,3 +47,4 @@
     </script>
 </body>
 </html>
+
