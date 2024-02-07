@@ -4,42 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS styles for the navigation bar */
+        header {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        nav ul li a.active {
+            background-color: lightblue;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+        }
+
+        /* CSS styles for the settings section */
+        #tabCloaker {
+            display: none;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="#games">Games</a></li>
-                <li><a href="#websites">Websites</a></li>
-                <li><a href="#settings" onclick="showSettings()">Settings</a></li>
-                <li><a href="#credits">Credits</a></li>
+                <li><a href="#games" onclick="selectTab(this)">Games</a></li>
+                <li><a href="#websites" onclick="selectTab(this)">Websites</a></li>
+                <li><a href="#settings" onclick="selectTab(this)">Settings</a></li>
+                <li><a href="#credits" onclick="selectTab(this)">Credits</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h1>Settings</h1>
-        <section id="tabCloaker" style="display: none;">
+        <section id="tabCloaker">
             <h2>Tab Cloaker</h2>
-            <label for="tabUrl">Website URL:</label>
-            <input type="url" id="tabUrl" placeholder="Enter website URL">
+            <label for="tabImage">Tab Image:</label>
+            <input type="file" id="tabImage" accept="image/*">
+            <br>
+            <label for="tabName">Tab Name:</label>
+            <input type="text" id="tabName">
             <br>
             <button onclick="openInBlank()">Open in About:Blank Tab</button>
         </section>
     </main>
 
     <script>
-        function showSettings() {
-            var tabCloaker = document.getElementById("tabCloaker");
-            tabCloaker.style.display = "block";
+        function selectTab(tab) {
+            // Remove 'active' class from all links
+            var links = document.querySelectorAll('nav ul li a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked link
+            tab.classList.add('active');
+
+            // Show or hide the settings section based on the clicked tab
+            if (tab.href.endsWith("#settings")) {
+                document.getElementById("tabCloaker").style.display = "block";
+            } else {
+                document.getElementById("tabCloaker").style.display = "none";
+            }
         }
 
         function openInBlank() {
-            var url = document.getElementById("tabUrl").value;
+            var tabImage = document.getElementById("tabImage").files[0];
+            var tabName = document.getElementById("tabName").value;
             var newTab = window.open("about:blank", "_blank");
             if (newTab) {
-                newTab.location.href = url;
+                newTab.document.write('<html><head><title>' + tabName + '</title></head><body><img src="' + URL.createObjectURL(tabImage) + '" alt="' + tabName + '"></body></html>');
             } else {
                 alert("Popup blocked! Please allow popups for this website.");
             }
@@ -47,4 +101,7 @@
     </script>
 </body>
 </html>
+
+
+
 
