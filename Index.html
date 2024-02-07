@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom</title>
+    <title>Settings</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,7 +19,26 @@
     </header>
 
     <main>
+        <h1>Settings</h1>
+        <section id="tabCloaker">
+            <h2>Tab Cloaker</h2>
+            <label for="tabUrl">Website URL:</label>
+            <input type="url" id="tabUrl" placeholder="Enter website URL">
+            <br>
+            <button onclick="openInBlank()">Open in About:Blank Tab</button>
+        </section>
     </main>
+
+    <script>
+        function openInBlank() {
+            var url = document.getElementById("tabUrl").value;
+            var newTab = window.open("about:blank", "_blank");
+            if (newTab) {
+                newTab.location.href = url;
+            } else {
+                alert("Popup blocked! Please allow popups for this website.");
+            }
+        }
+    </script>
 </body>
 </html>
-
